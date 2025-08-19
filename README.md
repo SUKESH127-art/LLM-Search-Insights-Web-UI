@@ -47,14 +47,14 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 - **`/src/lib`**: Utility functions and configurations
 - **`/media`**: Project screenshots and demonstrations
 
-## Learn More
+## System Architecture
 
-To learn more about Next.js, take a look at the following resources:
+### Backend Architecture
+![Backend Architecture](media/Backend_architecture%20Diagram.png)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The backend follows a microservices architecture with asynchronous job processing, web scraping capabilities, and AI-powered analysis synthesis.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Visit the [LLM Search Insights API repository](https://github.com/SUKESH127-art/LLM-search-insights-api). The backend is built with FastAPI and provides the core analysis engine that powers this web application.
 
 ## Deploy on Vercel
 
