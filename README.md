@@ -1,267 +1,197 @@
-# LLM Search Insight Web App
+# 🚀 LLM Search Insights
 
-A Next.js web application that provides intelligent search insights and analysis through integration with the LLM Search Insights API. This application allows users to submit research questions and receive comprehensive analysis reports with visualizations.
+<div align="center">
 
-### Job Processing
+![Next.js](https://img.shields.io/badge/Next.js-13+-000000?style=for-the-badge&logo=next.js&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge&logo=github)](https://github.com/SUKESH127-art/LLM-Search-Insights-Web-UI/pulls)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
+
+*Next.js web app that generates intelligent LLM search insights & visualizations via [LLM Search Insights API](https://github.com/SUKESH127-art/LLM-search-insights-api).*
+
+</div>
+
+---
+
+## ✨ Features
+
+<div align="center">
+
+### 📝 Model Customer Queries
 ![Job Running](media/job_running.png)
 
-### Analysis Results
+### 🔍 Generate Google Search SEO Analysis & LLM Visibility Insight Report
 ![Results](media/results.gif)
 
-### Visualization Comparison
+### 📊 Visualize Brand Performance
 ![Stunning Visualization](media/stunning_visualization_comparison_with_methodology.png)
 
-## Features
+</div>
 
-- **Search Interface**: Submit research questions for analysis
-- **Real-time Status Tracking**: Monitor job progress with live updates
-- **Comprehensive Results**: View detailed analysis including web results, ChatGPT simulations, and brand visibility charts
-- **Visual Analytics**: Interactive charts and visualizations for brand analysis
-- **Modern UI**: Built with Next.js, TypeScript, and Tailwind CSS
+### 🎯 **Key Insights Include**
+- **🔍 Google SEO Analysis**: Marketer-oriented brand visibility report based off of top Google results as well as what these brands are known for. 
+- **🤖 ChatGPT's Actual Response**: AI-generated answer to query  
+- **📈 Data Visualization**: Interactive charts showing top 5 LLM-visible brands with methodology.
 
-## Getting Started
+---
 
-First, run the development server:
+## 🏗️ System Architecture
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### 🔧 Backend Architecture
+The backend follows a microservices architecture with asynchronous job processing, web scraping capabilities, and AI-powered analysis synthesis. Check out the **[Backend GitHub Repo](https://github.com/SUKESH127-art/LLM-search-insights-api)**!
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<div align="center">
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Project Structure
-
-- **`/src/app`**: Next.js app router pages and API routes
-- **`/src/components`**: React components including analysis results, charts, and search interface
-- **`/src/hooks`**: Custom React hooks for API integration
-- **`/src/lib`**: Utility functions and configurations
-- **`/media`**: Project screenshots and demonstrations
-
-## System Architecture
-
-### Backend Architecture
 ![Backend Architecture](media/backend_architecture_diagram.png)
 
-The backend follows a microservices architecture with asynchronous job processing, web scraping capabilities, and AI-powered analysis synthesis.
-
-Check out the [LLM Search Insights API Git Repo](https://github.com/SUKESH127-art/LLM-search-insights-api) for more info.
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+</div>
 
 ---
 
-# LLM Search Insight API Guide (v5.1)
+## 📁 Project Structure
 
-This guide provides developers with comprehensive information to interact with the LLM Search Insight API. The API is designed to analyze research questions, providing in-depth insights and visualizations based on simulated web analysis.
-
-**API Documentation:**
-*   **Live Swagger UI:** [https://llm-search-insights-api.onrender.com/docs](https://llm-search-insights-api.onrender.com/docs)
-*   **OpenAPI Spec:** [https://llm-search-insights-api.onrender.com/openapi.json](https://llm-search-insights-api.onrender.com/openapi.json)
-*   **API Version:** 5.1 (OAS 3.1)
-
-**Base URL:**
-
-https://llm-search-insights-api.onrender.com
-
----
-
-### **Typical Workflow**
-
-Interacting with the API follows a simple asynchronous pattern:
-
-1.  **Submit Job:** Make a `POST` request to `/api/v1/analyze` with your research question. You will receive an `analysis_id`.
-2.  **Poll Status:** Periodically make `GET` requests to `/api/v1/analyze/{analysis_id}/status` to check the job's progress.
-3.  **Retrieve Results:** Once the status is `COMPLETE`, make a `GET` request to `/api/v1/analyze/{analysis_id}` to fetch the full report.
-
----
-
-### **Endpoints**
-
-### 1. Submit a New Analysis Job
-
-This endpoint initiates a new analysis job by accepting a research question. The job is then queued for background processing.
-
--   **Method:** `POST`
--   **Endpoint:** `/api/v1/analyze`
-
-#### Request Body
-
-| Field | Type | Constraints | Required | Description |
-| :--- | :--- | :--- | :--- | :--- |
-| `research_question` | string | 10-500 characters | Yes | The research question you want to analyze. |
-
-**Example `curl` Request:**
 ```bash
-curl -X 'POST' \
-  'https://llm-search-insights-api.onrender.com/api/v1/analyze' \
-  -H 'accept: application/json' \
-  -H 'Content-Type: application/json' \
-  -d '{
-  "research_question": "what is the best purse brand?"
-}'
+llm-search-insight-web-app/
+├── src/
+│   ├── app/                    # Next.js app router
+│   │   ├── api/               # API routes
+│   │   ├── globals.css        # Global styles
+│   │   ├── layout.tsx         # Root layout
+│   │   ├── page.tsx           # Home page
+│   │   ├── providers.tsx      # Context providers
+│   │   └── tailwind-input.css # Tailwind source
+│   ├── components/             # React components
+│   │   ├── ui/                # Reusable UI components
+│   │   │   ├── accordion.tsx  # Accordion component
+│   │   │   ├── alert.tsx      # Alert component
+│   │   │   ├── badge.tsx      # Badge component
+│   │   │   ├── button.tsx     # Button component
+│   │   │   ├── card.tsx       # Card component
+│   │   │   ├── input.tsx      # Input component
+│   │   │   ├── progress.tsx   # Progress component
+│   │   │   ├── skeleton.tsx   # Skeleton component
+│   │   │   └── tooltip.tsx    # Tooltip component
+│   │   ├── AnalysisResults.tsx # Main results display
+│   │   ├── BrandChart.tsx     # Brand visualization
+│   │   ├── LoadingState.tsx   # Loading indicators
+│   │   └── SearchInterface.tsx # Search form
+│   ├── hooks/                  # Custom React hooks
+│   │   └── useAnalysis.ts     # API integration hook
+│   └── lib/                    # Utility functions
+│       ├── parser.ts           # Text parsing utilities
+│       └── utils.ts            # General utilities
+├── public/                      # Static assets
+│   ├── file.svg                # File icon
+│   ├── globe.svg               # Globe icon
+│   ├── next.svg                # Next.js logo
+│   ├── vercel.svg              # Vercel logo
+│   └── window.svg              # Window icon
+├── media/                       # Project screenshots
+├── components.json              # shadcn/ui configuration
+├── next.config.ts               # Next.js configuration
+├── tailwind.config.js           # Tailwind CSS configuration
+├── tsconfig.json                # TypeScript configuration
+└── package.json                 # Dependencies and scripts
 ```
 
-#### Responses
+---
 
--   **`202 Accepted`** (Successful Response)
-    *   **Description:** The job was successfully submitted and is now queued.
-    *   **Body:**
-        ```json
-        {
-          "analysis_id": "ceac7d08-c4c1-45aa-85a5-a0c9d8c26f84",
-          "status": "QUEUED"
-        }
-        ```
+## 🔌 LLM Insights API
 
--   **`404 Not Found`**
-    *   **Description:** The requested resource was not found.
-    *   **Body:**
-        ```json
-        {
-          "error": "ValidationError",
-          "details": {}
-        }
-        ```
+### 🚀 Get Started
+- **[Render's Live Docs](https://llm-search-insights-api.onrender.com/docs)**
+- **[OpenAPI Spec](https://llm-search-insights-api.onrender.com/openapi.json)**
 
--   **`422 Validation Error`**
-    *   **Description:** The request body is invalid (e.g., `research_question` is missing or does not meet length requirements).
-    *   **Body:**
-        ```json
-        {
-          "detail": [
-            {
-              "loc": [ "string", 0 ],
-              "msg": "string",
-              "type": "string"
-            }
-          ]
-        }
-        ```
+### 📡 Endpoints
 
--   **`500 Internal Server Error`**
-    *   **Description:** An unexpected error occurred on the server.
-    *   **Body:**
-        ```json
-        {
-          "error": "ValidationError",
-          "details": {}
-        }
-        ```
+<div align="center">
+
+| 🔄 **Generate Insight** | 📊 **Poll Job Status** | 🎯 **See Results** |
+|:---:|:---:|:---:|
+| `POST /api/v1/analyze` | `GET /api/v1/analyze/{analysis_id}/status` | `GET /api/v1/analyze/{analysis_id}` |
+
+</div>
+
+### 💻 Example Usage
+
+```bash
+# Submit analysis
+curl -X POST 'https://llm-search-insights-api.onrender.com/api/v1/analyze' \
+  -H 'Content-Type: application/json' \
+  -d '{"research_question": "What are the best programming languages for AI?"}'
+
+# Check status
+curl 'https://llm-search-insights-api.onrender.com/api/v1/analyze/{analysis_id}/status'
+
+# Get results
+curl 'https://llm-search-insights-api.onrender.com/api/v1/analyze/{analysis_id}'
+```
 
 ---
 
-### 2. Check Analysis Job Status
+## 📊 Data Models
 
-Poll this endpoint to get the real-time status and progress of an analysis job.
+### 🏗️ Core Schemas
 
--   **Method:** `GET`
--   **Endpoint:** `/api/v1/analyze/{analysis_id}/status`
+<div align="center">
 
-#### Path Parameters
+| 📋 **Schema** | 📝 **Description** |
+|:---:|:---:|
+| `FullAnalysisResult` | Main analysis report container |
+| `WebAnalysis` | Web scraping results and confidence scores |
+| `ChatGPTResponse` | AI-generated responses and brand identification |
+| `VisualizationData` | Chart data and methodology explanations |
 
-| Parameter | Type | Required | Description |
-| :--- | :--- | :--- | :--- |
-| `analysis_id` | string | Yes | The unique ID returned when the job was submitted. |
+</div>
 
-#### Responses
+#### 🔍 `FullAnalysisResult`
+- `analysis_id` (string)
+- `research_question` (string) 
+- `status` (string): `QUEUED` • `PROCESSING` • `SCRAPING` • `SYNTHESIZING` • `COMPLETE` • `ERROR`
+- `completed_at` (string, date-time)
+- `web_results` (WebAnalysis object)
+- `chatgpt_simulation` (ChatGPTResponse object)
+- `visualization` (VisualizationData object)
 
--   **`200 OK`** (Successful Response)
-    *   **Description:** Returns the current status of the job.
-    *   **Body:**
-        ```json
-        {
-          "status": "COMPLETE",
-          "progress": 100,
-          "current_step": "Finished",
-          "error_message": null
-        }
-        ```
+#### 🌐 `WebAnalysis`
+- `content` (string)
+- `confidence_score` (number)
 
--   **`404 Not Found`**, **`422 Validation Error`**, **`500 Internal Server Error`**
-    *   **Description:** These errors follow the same format as the `POST /analyze` endpoint.
+#### 🤖 `ChatGPTResponse`
+- `simulated_response` (string)
+- `identified_brands` (array of strings)
 
----
-
-### 3. Get Final Analysis Results
-
-Once the job status is `COMPLETE`, use this endpoint to retrieve the full analysis report.
-
--   **Method:** `GET`
--   **Endpoint:** `/api/v1/analyze/{analysis_id}`
-
-#### Path Parameters
-
-| Parameter | Type | Required | Description |
-| :--- | :--- | :--- | :--- |
-| `analysis_id` | string | Yes | The unique ID for the analysis job. |
-
-#### Responses
-
--   **`200 OK`** (Successful Response)
-    *   **Description:** Returns the complete analysis report.
-    *   **Body:** See the `FullAnalysisResult` schema below for a detailed breakdown.
-
--   **`404 Not Found`**, **`422 Validation Error`**, **`500 Internal Server Error`**
-    *   **Description:** These errors follow the same format as the `POST /analyze` endpoint.
+#### 📈 `VisualizationData`
+- `title` (string)
+- `brand_scores` (array of BrandVisibilityScore objects)
+- `methodology_explanation` (string)
 
 ---
 
-### **Schemas (Data Models)**
+## 🚀 Getting Started
 
-#### `StatusEnum`
-An enumeration of all possible job statuses:
--   `QUEUED`: The job is waiting to be processed.
--   `PROCESSING`: The job has started.
--   `SCRAPING`: The web data collection phase is in progress.
--   `SYNTHESIZING`: The results are being analyzed and synthesized.
--   `COMPLETE`: The job has finished successfully.
--   `ERROR`: The job failed.
+### 📋 Prerequisites
+- **Node.js** 18+ 
+- **npm**, **yarn**, **pnpm**, or **bun**
 
-#### `FullAnalysisResult`
-The main object containing the complete analysis report.
--   `analysis_id` (string)
--   `research_question` (string)
--   `status` (string): The final status (e.g., "COMPLETE").
--   `completed_at` (string, `date-time`)
--   `web_results` (WebAnalysis object)
--   `chatgpt_simulation` (ChatGPTResponse object)
--   `visualization` (VisualizationData object)
+### ⚡ Quick Start
 
-#### `WebAnalysis`
--   `source` (string)
--   `content` (string)
--   `timestamp` (string, `date-time`)
--   `confidence_score` (number)
+```bash
+# 1. Clone and install dependencies
+git clone <your-repo-url>
+cd llm-search-insight-web-app
+npm install
 
-#### `ChatGPTResponse`
--   `simulated_response` (string)
--   `identified_brands` (array of strings)
+# 2. Run dev server
+npm run dev
 
-#### `VisualizationData`
--   `chart_type` (string): e.g., "bar\_chart\_brand\_visibility".
--   `title` (string)
--   `x_axis_label` (string)
--   `y_axis_label` (string)
--   `top_5_brands` (array of strings)
--   `brand_scores` (array of BrandVisibilityScore objects)
--   `methodology_explanation` (string)
+# 3. Open browser: http://localhost:3000
+```
 
-#### `BrandVisibilityScore`
--   `brand_name` (string)
--   `visibility_score` (integer, `[1, 100]`)
--   `rank` (integer)
--   `mentions` (integer)
+<div align="center">
+
+🎉 **You're all set! Your LLM Search Insight Web App is now running locally.**
+
+</div>
