@@ -50,7 +50,7 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 ## System Architecture
 
 ### Backend Architecture
-![Backend Architecture](media/Backend_architecture%20Diagram.png)
+![Backend Architecture](media/backend_architecture_diagram.png)
 
 The backend follows a microservices architecture with asynchronous job processing, web scraping capabilities, and AI-powered analysis synthesis.
 
