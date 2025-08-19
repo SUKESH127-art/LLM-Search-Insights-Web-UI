@@ -6,7 +6,6 @@ import { BrandChart } from "./BrandChart";
 // --- TypeScript Interfaces ---
 interface BrandVisibilityScore { brand_name: string; visibility_score: number; rank: number; mentions: number; }
 interface FullAnalysisResult { web_results: { content: string; confidence_score: number; }; chatgpt_simulation: { simulated_response: string; }; visualization: { title: string; brand_scores: BrandVisibilityScore[]; }; }
-interface AnalysisResultsProps { data: FullAnalysisResult; query: string; }
 
 // --- Reusable Low-Level Component ---
 const FormattedText = ({ text, className = "text-muted-foreground", as: Component = "p" }: { text: string; className?: string; as?: React.ElementType }) => {
