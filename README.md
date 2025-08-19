@@ -74,8 +74,8 @@ This guide provides developers with comprehensive information to interact with t
 *   **API Version:** 5.1 (OAS 3.1)
 
 **Base URL:**
-```
-https://llm-search-insights-api.onrender.com```
+
+https://llm-search-insights-api.onrender.com
 
 ---
 
