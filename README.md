@@ -54,7 +54,7 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 
 The backend follows a microservices architecture with asynchronous job processing, web scraping capabilities, and AI-powered analysis synthesis.
 
-Visit the [LLM Search Insights API repository](https://github.com/SUKESH127-art/LLM-search-insights-api). The backend is built with FastAPI and provides the core analysis engine that powers this web application.
+Check out the [LLM Search Insights API Git Repo](https://github.com/SUKESH127-art/LLM-search-insights-api) for more info.
 
 ## Deploy on Vercel
 
