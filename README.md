@@ -2,14 +2,14 @@
 
 <div align="center">
 
-![Next.js](https://img.shields.io/badge/Next.js-13+-000000?style=for-the-badge&logo=next.js&logoColor=white)
-![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
-![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge&logo=github)](https://github.com/SUKESH127-art/LLM-Search-Insights-Web-UI/pulls)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
+![Next.js](https://img.shields.io/badge/Next.js-13+-000000)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/SUKESH127-art/LLM-Search-Insights-Web-UI/pulls)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-*Next.js web app that generates intelligent LLM search insights & visualizations via [LLM Search Insights API](https://github.com/SUKESH127-art/LLM-search-insights-api).*
+*Generate LLM search insights & visualizations!*
 
 </div>
 
@@ -19,13 +19,13 @@
 
 <div align="center">
 
-### 📝 Model Customer Queries
+### 📝 Simulate & Analyze Customers LLM Search Queries
 ![Job Running](media/job_running.png)
 
-### 🔍 Generate Google Search SEO Analysis & LLM Visibility Insight Report
+### 🔍 Generate Google SEO Analysis & LLM Visibility Insight Report
 ![Results](media/results.gif)
 
-### 📊 Visualize Brand Performance
+### 📊 Compare and Contrast Market Leaders
 ![Stunning Visualization](media/stunning_visualization_comparison_with_methodology.png)
 
 </div>
