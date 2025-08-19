@@ -24,28 +24,25 @@ export function parseWebAnalysis(text: string): WebAnalysisContent {
   let isIntroProse = true;
 
   for (const line of lines) {
-    // A section title is bolded and ends with a colon
-    const isSectionTitle = /^\*\*(.*?):\*\*/.test(line) || line.startsWith('**Conclusion**');
+    // A section title is ### Title or **Title:**
+    const isSectionTitle = line.startsWith('###') || (/^\*\*(.*?):\*\*/.test(line));
 
     if (isSectionTitle) {
-      isIntroProse = false; // Once we see the first section, we're no longer in the intro
-      const title = line.replace(/\*\*/g, '').replace(':', '').trim();
+      isIntroProse = false;
+      const title = line.replace(/#+\s*/, '').replace(/\*\*/g, '').replace(':', '').trim();
       currentSection = { title, items: [] };
       result.sections.push(currentSection);
       currentItem = null; // A new section resets the current item
       continue;
     }
-    
-    // An item is a numbered list
+
     const isSubItem = /^\d+\.\s/.test(line);
     if (isSubItem) {
       isIntroProse = false;
-      // Failsafe: if an item appears before a section, create a default "Key Findings" section
       if (!currentSection) {
-        currentSection = { title: 'Key Findings', items: [] };
+        currentSection = { title: 'Key Points', items: [] };
         result.sections.push(currentSection);
       }
-      
       const [titlePart, ...contentParts] = line.replace(/^\d+\.\s/, '').split(':');
       currentItem = {
         title: titlePart.replace(/\*\*/g, '').trim(),
@@ -58,7 +55,6 @@ export function parseWebAnalysis(text: string): WebAnalysisContent {
     if (isIntroProse) {
       result.introductoryProse += (result.introductoryProse ? '\n' : '') + line;
     } else if (currentItem) {
-      // If we are in an item, this line is its content.
       currentItem.content.push(line);
     }
   }
@@ -73,24 +69,24 @@ export interface SimpleListContent {
 }
 
 export function parseSimpleList(text: string): SimpleListContent {
-  const lines = text.split('\n').filter(line => line.trim() !== '');
-  const result: SimpleListContent = { introductoryProse: [], items: [], concludingProse: [] };
-  let state: 'intro' | 'list' | 'conclusion' = 'intro';
-  for (const line of lines) {
-      const isListItem = /^\d+\.\s/.test(line);
-      if (isListItem && state === 'intro') { state = 'list'; }
-      if (!isListItem && state === 'list') { state = 'conclusion'; }
-      switch(state) {
-          case 'intro': result.introductoryProse.push(line); break;
-          case 'list':
-              const [titlePart, ...contentParts] = line.replace(/^\d+\.\s/, '').split(':');
-              result.items.push({
-                  title: titlePart.replace(/\*\*/g, '').trim(),
-                  content: contentParts.length > 0 ? [contentParts.join(':').trim()] : [],
-              });
-              break;
-          case 'conclusion': result.concludingProse.push(line); break;
-      }
-  }
-  return result;
+    const lines = text.split('\n').filter(line => line.trim() !== '');
+    const result: SimpleListContent = { introductoryProse: [], items: [], concludingProse: [] };
+    let state: 'intro' | 'list' | 'conclusion' = 'intro';
+    for (const line of lines) {
+        const isListItem = /^\d+\.\s/.test(line);
+        if (isListItem && state === 'intro') { state = 'list'; }
+        if (!isListItem && state === 'list') { state = 'conclusion'; }
+        switch(state) {
+            case 'intro': result.introductoryProse.push(line); break;
+            case 'list':
+                const [titlePart, ...contentParts] = line.replace(/^\d+\.\s/, '').split(':');
+                result.items.push({
+                    title: titlePart.replace(/\*\*/g, '').trim(),
+                    content: contentParts.length > 0 ? [contentParts.join(':').trim()] : [],
+                });
+                break;
+            case 'conclusion': result.concludingProse.push(line); break;
+        }
+    }
+    return result;
 }
