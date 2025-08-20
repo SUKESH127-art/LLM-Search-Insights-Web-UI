@@ -40,13 +40,51 @@
 ## 🏗️ System Architecture
 
 ### 🔧 Backend Architecture
-The backend follows a microservices architecture with asynchronous job processing, web scraping capabilities, and AI-powered analysis synthesis. Check out the **[Backend GitHub Repo](https://github.com/SUKESH127-art/LLM-search-insights-api)**!
+The backend follows a microservices architecture with asynchronous job processing, web scraping capabilities, and AI-powered analysis synthesis. Check out the **[Backend GitHub Repo](https://github.com/SUKESH127-art/LLM-search-insights-api)**! The entire system is built on an asynchronous, polling-based interaction model.
+
+
+### High-Level Architecture
 
 <div align="center">
 
 ![Backend Architecture](media/backend_architecture_diagram.png)
 
 </div>
+
+The system is composed of four primary layers:
+1.  **Client Application**: Any HTTP client (e.g., the provided CLI, a Next.js web app) that initiates and retrieves analysis jobs.
+2.  **FastAPI Web Service**: The public-facing API layer that handles request validation, database session management, and spawns background tasks.
+3.  **Background Processing Layer**: The core of the application, where a multi-stage pipeline orchestrates data collection, processing, and visualization.
+4.  **Data & External Services**: The persistence layer (SQLite) and the external APIs (Bright Data, OpenAI) that the service depends on.
+
+### Data Flow & Interaction Model
+
+The service uses a non-blocking, polling-based workflow:
+1.  **Job Submission**: A client sends a `POST` request to `/api/v1/analyze`. The server immediately validates the request, creates a job record in the database with a `QUEUED` status, and returns a `202 Accepted` response with a unique `analysis_id`. A background task is spawned to perform the analysis.
+2.  **Background Processing**: The background task progresses through a series of states (`PROCESSING`, `SYNTHESIZING`, etc.), making parallel calls to Bright Data and OpenAI. It continuously updates the job's status in the database.
+3.  **Result Retrieval**: The client periodically polls the `GET /.../status` endpoint. Once the status is `COMPLETE`, the client makes a final call to `GET /.../{id}` to retrieve the full, structured JSON report.
+
+### Key Assumptions & Tradeoffs
+
+The current design was built on a set of assumptions that informed key architectural tradeoffs. These choices prioritized development speed and simplicity, which are appropriate for an MVP but have clear implications for production scalability.
+
+| Design Choice... | Pro | Con |
+| :--- | :--- | :--- |
+| **SQLite Database** | **Extreme Simplicity & Speed of Development.** Zero setup, no separate server to manage. | **Scalability & Concurrency.** The single-writer nature of SQLite is a bottleneck under high write loads. |
+| **FastAPI `BackgroundTasks`** | **Simplicity & No Extra Infrastructure.** Avoids the complexity of managing a separate task queue like Celery/Redis. | **Reliability & Persistence.** If the server restarts, any in-progress tasks are permanently lost. |
+| **JSON Blob for Results** | **High Read Performance & Simple Code.** Retrieving a full report is a single, fast database read with no complex `JOIN`s. | **Data Queryability.** It is not possible to run analytical queries over the contents of the final reports. |
+| **HTTP Polling** | **Simplicity & Statelessness.** The backend is simple, and the client logic is straightforward to implement. | **Efficiency & Real-Time Updates.** Polling can be inefficient and does not provide real-time notifications. |
+
+### Limitations & Future Enhancements
+
+The tradeoffs above result in known limitations that define the roadmap for production-hardening the service:
+
+*   **AI Hallucination in Data Cleaning & Analysis**: Using LLMs for data cleaning or analysis can introduce "hallucinations"—plausible but incorrect or fabricated data and insights. This may result in errors that are hard to detect and can mislead downstream decisions. Always validate AI-generated outputs, prefer rule-based methods for critical steps, and flag AI-derived results for review when accuracy is essential.
+*   **Database Scalability**: The primary bottleneck is SQLite. The first step to scaling would be migrating to a client-server database like **PostgreSQL**.
+*   **Task Queue Reliability**: The lack of task persistence is a critical issue for a production system. The next step would be to replace `BackgroundTasks` with a robust task queue like **Celery + Redis**.
+*   **Observability**: The current use of `print()` statements is insufficient for production. The system needs to be upgraded with structured **logging**, **metrics**, and **tracing** for proper monitoring and debugging.
+*   **Security**: The current app lacks user authentication and the API lacks authorization, making it vulnerable to unauthorized access and potential data leaks. We could handle this via migration to Supabase (row level security, automatic user handling).
+
 
 ---
 
@@ -62,16 +100,10 @@ llm-search-insight-web-app/
 │   │   ├── page.tsx           # Home page
 │   │   ├── providers.tsx      # Context providers
 │   │   └── tailwind-input.css # Tailwind source
-│   ├── components/             # React components
-│   │   ├── ui/                # Reusable UI components
+│   ├── components/             # React components (shadcn)
+│   │   ├── ui/ ...               # Reusable UI components
 │   │   │   ├── accordion.tsx  # Accordion component
-│   │   │   ├── alert.tsx      # Alert component
-│   │   │   ├── badge.tsx      # Badge component
-│   │   │   ├── button.tsx     # Button component
-│   │   │   ├── card.tsx       # Card component
-│   │   │   ├── input.tsx      # Input component
-│   │   │   ├── progress.tsx   # Progress component
-│   │   │   ├── skeleton.tsx   # Skeleton component
+│   │   │   ├── ...      
 │   │   │   └── tooltip.tsx    # Tooltip component
 │   │   ├── AnalysisResults.tsx # Main results display
 │   │   ├── BrandChart.tsx     # Brand visualization
